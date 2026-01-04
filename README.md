@@ -8,4 +8,4 @@ Install directly from GitHub:
 
 ```r
 # install.packages("devtools")
-devtools::install_github("YourUserName/SeuratVizHelper")
+devtools::install_github("AyumuOkumura/SeuratVizHelper")
