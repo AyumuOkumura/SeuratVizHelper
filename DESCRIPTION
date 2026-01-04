@@ -1,11 +1,12 @@
 Package: SeuratVizHelper
-Title: What the Package Does (One Line, Title Case)
+Title: Enhanced Visualization Tools for Seurat Single-Cell Analysis
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person("Ayumu", "Okumura", , "okumura-ayumu958@g.ecc.u-tokyo.ac.jp", role = c("aut", "cre"))
+Description: Provides Scanpy-style stacked violin plots and other publication-ready 
+    visualizations for Seurat single-cell RNA-seq analysis. Includes dendrogram-based 
+    cluster ordering and flexible plotting options.
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
@@ -16,7 +17,7 @@ Imports:
     magrittr,
     patchwork,
     rlang,
-    Seurat,
+    Seurat (>= 4.0.0),
     tibble,
     tidyr
 URL: https://github.com/AyumuOkumura/SeuratVizHelper
