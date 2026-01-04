@@ -18,6 +18,26 @@
 #' @return A patchwork object combining the dendrogram and violin plots.
 #' @export
 #'
+#' @examples
+#' \dontrun{
+#' library(Seurat)
+#' library(SeuratVizHelper)
+#' 
+#' # Basic usage
+#' StackVln(pbmc, features = c("CD3D", "CD8A", "CD4"))
+#' 
+#' # Custom cluster order and colors
+#' StackVln(pbmc, 
+#'          features = c("MS4A1", "CD79A"),
+#'          cluster_order = c("0", "3", "1", "2"),
+#'          color_high = "darkblue")
+#' 
+#' # Save to file
+#' StackVln(pbmc, 
+#'          features = c("CD14", "LYZ"),
+#'          save_dir = "./plots")
+#' }
+#'
 #' @import Seurat
 #' @import ggplot2
 #' @import dplyr
@@ -40,12 +60,58 @@ StackVln <- function(
     save_dir = NULL 
 ) {
   
+  # Input validation
+  if (!inherits(seurat_object, "Seurat")) {
+    stop("seurat_object must be a Seurat object")
+  }
+  
+  if (!is.character(features) || length(features) == 0) {
+    stop("features must be a non-empty character vector")
+  }
+  
+  if (!assay %in% names(seurat_object@assays)) {
+    stop(sprintf("Assay '%s' not found in Seurat object. Available assays: %s",
+                 assay, paste(names(seurat_object@assays), collapse = ", ")))
+  }
+  
+  if (!group.by %in% colnames(seurat_object@meta.data)) {
+    stop(sprintf("Column '%s' not found in meta.data. Available columns: %s",
+                 group.by, paste(head(colnames(seurat_object@meta.data), 10), collapse = ", ")))
+  }
+  
+  if (length(plot_heights) != 2 || !is.numeric(plot_heights)) {
+    stop("plot_heights must be a numeric vector of length 2")
+  }
+  
+  if (!is.null(cluster_order)) {
+    if (!is.character(cluster_order) && !is.numeric(cluster_order)) {
+      stop("cluster_order must be a character or numeric vector")
+    }
+    cluster_order <- as.character(cluster_order)
+    available_clusters <- unique(as.character(seurat_object@meta.data[[group.by]]))
+    invalid_clusters <- setdiff(cluster_order, available_clusters)
+    if (length(invalid_clusters) > 0) {
+      warning(sprintf("The following clusters in cluster_order were not found in %s: %s",
+                      group.by, paste(invalid_clusters, collapse = ", ")))
+    }
+  }
+  
   obj_name <- deparse(substitute(seurat_object))
   
+  # Prepare save path and create directory if needed
   final_save_path <- NULL
   if (!is.null(save_path)) {
     final_save_path <- save_path
+    save_dir_path <- dirname(final_save_path)
+    if (!dir.exists(save_dir_path)) {
+      dir.create(save_dir_path, recursive = TRUE, showWarnings = FALSE)
+      message(sprintf("Created directory: %s", save_dir_path))
+    }
   } else if (!is.null(save_dir)) {
+    if (!dir.exists(save_dir)) {
+      dir.create(save_dir, recursive = TRUE, showWarnings = FALSE)
+      message(sprintf("Created directory: %s", save_dir))
+    }
     file_name <- paste0(obj_name, "_stack_vln.png")
     final_save_path <- file.path(save_dir, file_name)
   }
@@ -53,9 +119,15 @@ StackVln <- function(
   features <- unique(features)
   available_features <- base::intersect(features, rownames(seurat_object[[assay]]))
   
+  if(length(available_features) == 0) {
+    stop(sprintf("None of the requested features were found in assay '%s'. Requested: %s",
+                 assay, paste(features, collapse=", ")))
+  }
+  
   if(length(available_features) < length(features)){
     missing <- base::setdiff(features, available_features)
-    message("Warning: The following genes were not found and skipped: ", paste(missing, collapse=", "))
+    warning(sprintf("The following %d gene(s) were not found in assay '%s' and will be skipped: %s", 
+                    length(missing), assay, paste(missing, collapse=", ")))
     features <- available_features 
   }
   
@@ -71,8 +143,8 @@ StackVln <- function(
   df_stat <- df_long %>%
     group_by(cluster, gene) %>%
     summarise(
-      mean_expr = mean(expression),   
-      median_expr = median(expression), 
+      mean_expr = mean(expression, na.rm = TRUE),   
+      median_expr = median(expression, na.rm = TRUE), 
       .groups = "drop"
     )
   
@@ -130,16 +202,21 @@ StackVln <- function(
   
   if (!is.null(final_save_path)) {
     calc_height <- max(5, length(features) * 0.4 + 2)
-    ggsave(
-      filename = final_save_path,
-      plot = p_final,
-      width = plot_width,
-      height = calc_height,
-      dpi = 300,
-      bg = "white",
-      limitsize = FALSE
-    )
-    message(paste("Saved plot to:", final_save_path, "(Width:", plot_width, "in)"))
+    tryCatch({
+      ggsave(
+        filename = final_save_path,
+        plot = p_final,
+        width = plot_width,
+        height = calc_height,
+        dpi = 300,
+        bg = "white",
+        limitsize = FALSE
+      )
+      message(sprintf("Successfully saved plot to: %s (Width: %d in, Height: %.1f in)", 
+                      final_save_path, plot_width, calc_height))
+    }, error = function(e) {
+      warning(sprintf("Failed to save plot to '%s': %s", final_save_path, e$message))
+    })
   }
   
   return(p_final)
