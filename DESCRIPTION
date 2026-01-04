@@ -19,3 +19,5 @@ Imports:
     Seurat,
     tibble,
     tidyr
+URL: https://github.com/AyumuOkumura/SeuratVizHelper
+BugReports: https://github.com/AyumuOkumura/SeuratVizHelper/issues
