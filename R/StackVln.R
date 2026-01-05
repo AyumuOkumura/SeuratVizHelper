@@ -117,6 +117,10 @@ StackVln <- function(
     stop("plot_heights must be a numeric vector of length 2")
   }
   
+  if (!is.numeric(x_label_margin) || length(x_label_margin) != 1 || x_label_margin <= 0) {
+    stop("x_label_margin must be a single positive numeric value")
+  }
+  
   if (!is.null(cluster_order)) {
     if (!is.character(cluster_order) && !is.numeric(cluster_order)) {
       stop("cluster_order must be a character or numeric vector")
@@ -303,6 +307,7 @@ StackVln <- function(
       axis.line = element_blank(),
       legend.position = "right",
       axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, color = "black"),
+      # Convert x_label_margin from inches to points (1 inch = 72 points)
       plot.margin = margin(t = 5, r = 5, b = x_label_margin * 72, l = 5, unit = "pt")
     )
   
