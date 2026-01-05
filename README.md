@@ -39,7 +39,7 @@ StackVln(
   features = c("IL7R", "CCR7", "S100A4"),
   group.by = "seurat_clusters",
   dendrogram_method = "dims",
-  ndim = ndim,
+  ndim = ndim, # default 30 dimensions (ndim not specified)
   plot_width = 12,
   plot_heights = c(0.3, 3),
   # Define the height ratio between the "top graph (dendrogram)" and "bottom graph (violin plot)"
@@ -65,10 +65,17 @@ StackVln(
 ### Custom Colors
 
 ```r
-StackVln(seurat_obj,
-         features = c("CD3D", "CD8A"),
-         color_low = "lightblue",
-         color_high = "darkred")
+StackVln(
+  seurat_object = seurat_obj,
+  features = c("IL7R", "CCR7", "S100A4"),
+  group.by = "seurat_clusters",
+  dendrogram_method = "dims",
+  plot_width = 12,
+  plot_heights = c(0.3, 3),
+  color_low = "lightblue",
+　color_high = "darkred",
+  save_dir = "./figures",
+         )
 ```
 
 ### Dendrogram Calculation Methods
@@ -103,6 +110,7 @@ StackVln(seurat_obj,
 #### Method 2: Using Plot Features Only
 
 This method calculates the dendrogram based only on the genes you're plotting.
+dendrogram_method = "features"
 
 ```r
 StackVln(seurat_obj,
