@@ -50,6 +50,7 @@
 #' @import ggdendro
 #' @import patchwork
 #' @importFrom rlang !! sym
+#' @importFrom ape as.hclust.phylo
 StackVln <- function(
     seurat_object,
     features,
@@ -214,6 +215,11 @@ StackVln <- function(
   
   # Extract the dendrogram
   hc <- Tool(seurat_object, slot = "BuildClusterTree")
+  
+  # Convert phylo to hclust if necessary (Seurat v5 returns phylo objects)
+  if (inherits(hc, "phylo")) {
+    hc <- ape::as.hclust.phylo(hc)
+  }
   
   # Continue with existing dendro_data plotting code
   dendro_data <- ggdendro::dendro_data(hc)
