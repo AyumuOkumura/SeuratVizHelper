@@ -11,7 +11,7 @@
 
 ## AI Usage
 
-This package is made by AI coding tools (Gemini and Github copilot)
+This package was made by AI coding tools (Gemini and Github copilot)
 
 ## Installation
 
