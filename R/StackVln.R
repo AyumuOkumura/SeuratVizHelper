@@ -163,6 +163,13 @@ StackVln <- function(
     )
   
   # Build cluster tree using Seurat's BuildClusterTree
+  # Store original Active Idents to restore later
+  original_idents <- Idents(seurat_object)
+  
+  # Set Active Idents based on group.by parameter
+  # BuildClusterTree uses Active Idents internally, so we need to set it explicitly
+  Idents(seurat_object) <- seurat_object@meta.data[[group.by]]
+  
   dendrogram_method <- match.arg(dendrogram_method)
   
   if (dendrogram_method == "features") {
@@ -215,6 +222,9 @@ StackVln <- function(
   
   # Extract the dendrogram
   hc <- Tool(seurat_object, slot = "BuildClusterTree")
+  
+  # Restore original Active Idents
+  Idents(seurat_object) <- original_idents
   
   # Convert phylo to hclust if necessary (Seurat v5 returns phylo objects)
   if (inherits(hc, "phylo")) {
