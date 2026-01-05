@@ -32,10 +32,6 @@ library(SeuratVizHelper)
 seurat_obj <- readRDS("seurat_obj.rds")
 
 # Create a stacked violin plot (uses DefaultAssay automatically)
-StackVln(seurat_obj, 
-         features = c("CD3D", "CD8A", "CD4", "MS4A1", "CD14"),
-         color_high = "#BD2130")
-
 # Save to file
 ndim = 20
 StackVln(
