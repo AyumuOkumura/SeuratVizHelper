@@ -14,6 +14,10 @@
 #' @param plot_width Width of the saved plot in inches (default: 10).
 #' @param save_path Full path to save the file. Overrides save_dir.
 #' @param save_dir Directory to save the file using a default filename.
+#' @param ndim Number of dimensions to use when dendrogram_method = "dims". If NULL, uses default 1:30.
+#' @param dendrogram_method Method for calculating dendrogram. Options: "features" (uses specified features), 
+#'   "dims" (uses dimensionality reduction - recommended), "all_variable" (uses all variable features).
+#' @param reduction_for_tree Name of reduction to use when dendrogram_method = "dims" (default: "pca").
 #'
 #' @return A patchwork object combining the dendrogram and violin plots.
 #' @export
@@ -57,7 +61,10 @@ StackVln <- function(
     plot_heights = c(1, 9),
     plot_width = 10,
     save_path = NULL,
-    save_dir = NULL 
+    save_dir = NULL,
+    ndim = NULL,
+    dendrogram_method = c("features", "dims", "all_variable"),
+    reduction_for_tree = "pca"
 ) {
   
   # Input validation
@@ -148,16 +155,61 @@ StackVln <- function(
       .groups = "drop"
     )
   
-  # デンドログラム
-  mat_mean <- df_stat %>%
-    select(cluster, gene, mean_expr) %>%
-    pivot_wider(names_from = cluster, values_from = mean_expr) %>%
-    column_to_rownames("gene") %>%
-    as.matrix()
+  # Build cluster tree using Seurat's BuildClusterTree
+  dendrogram_method <- match.arg(dendrogram_method)
   
-  d <- dist(t(mat_mean))
-  hc <- hclust(d, method = "complete")
+  if (dendrogram_method == "features") {
+    # Use only the features specified for plotting
+    seurat_object <- BuildClusterTree(
+      seurat_object,
+      assay = assay,
+      features = features,  # Use validated features
+      slot = "data",
+      reorder = FALSE,
+      verbose = FALSE
+    )
+  } else if (dendrogram_method == "dims") {
+    # Use dimensionality reduction space
+    if (is.null(ndim)) {
+      dims_for_tree <- 1:30
+      message("ndim not specified, using default dims = 1:30 for dendrogram calculation")
+    } else {
+      # Validate ndim is a positive integer
+      if (!is.numeric(ndim) || length(ndim) != 1 || ndim <= 0 || ndim != as.integer(ndim)) {
+        stop("ndim must be a single positive integer")
+      }
+      dims_for_tree <- 1:ndim
+    }
+    
+    # Validate that the reduction exists
+    if (!reduction_for_tree %in% names(seurat_object@reductions)) {
+      stop(sprintf("Reduction '%s' not found in Seurat object. Available reductions: %s",
+                   reduction_for_tree, paste(names(seurat_object@reductions), collapse = ", ")))
+    }
+    
+    seurat_object <- BuildClusterTree(
+      seurat_object,
+      assay = assay,
+      dims = dims_for_tree,
+      reduction = reduction_for_tree,
+      reorder = FALSE,
+      verbose = FALSE
+    )
+  } else {
+    # Use all variable features
+    seurat_object <- BuildClusterTree(
+      seurat_object,
+      assay = assay,
+      slot = "data",
+      reorder = FALSE,
+      verbose = FALSE
+    )
+  }
   
+  # Extract the dendrogram
+  hc <- Tool(seurat_object, slot = "BuildClusterTree")
+  
+  # Continue with existing dendro_data plotting code
   dendro_data <- ggdendro::dendro_data(hc)
   p_dendro <- ggplot(ggdendro::segment(dendro_data)) +
     geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) +
