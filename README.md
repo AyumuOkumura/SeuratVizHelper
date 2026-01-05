@@ -60,6 +60,8 @@ StackVln(
   save_dir = file.path("png/ViolinPlot")
          )
 ```
+## Output
+{seurat_object}_stack_vln.png
 
 ## Advanced Usage
 ### Custom Colors
