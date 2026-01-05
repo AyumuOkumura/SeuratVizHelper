@@ -203,7 +203,7 @@ StackVln <- function(
       verbose = FALSE
     )
   } else {
-    # Use all variable features
+# Use all variable features
     seurat_object <- BuildClusterTree(
       seurat_object,
       assay = assay,
@@ -221,13 +221,20 @@ StackVln <- function(
     hc <- ape::as.hclust.phylo(hc)
   }
   
+  # --- 修正開始: 軸の範囲を合わせるための計算 ---
+  n_clusters <- length(hc$labels)
+  
   # Continue with existing dendro_data plotting code
   dendro_data <- ggdendro::dendro_data(hc)
+  
   p_dendro <- ggplot(ggdendro::segment(dendro_data)) +
     geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) +
-    scale_x_continuous(expand = c(0, 0)) +
+    # 【重要】X軸の範囲を 0.5 ~ N+0.5 に固定し、余白をゼロにする
+    scale_x_continuous(limits = c(0.5, n_clusters + 0.5), expand = c(0, 0)) +
+    scale_y_continuous(expand = c(0, 0)) +
     theme_void() + 
-    theme(plot.margin = margin(b = -10, unit = "pt")) 
+    theme(plot.margin = margin(b = -5, unit = "pt")) # マージン調整
+  # --- 修正終了 ---
   
   if (is.null(cluster_order)) {
     final_cluster_order <- as.character(hc$labels[hc$order])
@@ -245,10 +252,13 @@ StackVln <- function(
   if(any(is.na(df_plot$cluster))) warning("Some clusters became NA after reordering.")
   
   # 描画
+　# バイオリンプロットの描画（修正箇所: scale_x_discreteで余白をゼロにする）
   p_violin <- ggplot(df_plot, aes(x = cluster, y = expression, fill = median_expr)) +
     geom_violin(scale = "width", width = 1.0, trim = TRUE, linewidth = 0.1, color = "black") + 
     facet_grid(rows = vars(gene), scales = "free_y", switch = "y") +
     scale_fill_gradient(low = color_low, high = color_high, name = "Median\nExpr") +
+    # 【重要】離散スケールの余白をゼロにすることで、デンドログラムの座標系と一致させる
+    scale_x_discrete(expand = c(0, 0)) + 
     theme_classic() +
     theme(
       panel.spacing = unit(0, "lines"),
