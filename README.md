@@ -9,6 +9,10 @@
 - 🎨 **Customizable**: Colors, sizes, and cluster orders
 - 💾 **Easy Export**: Built-in high-resolution image saving
 
+## AI Usage
+
+This package is made by AI coding tools (Gemini and Github copilot)
+
 ## Installation
 
 Install directly from GitHub:
