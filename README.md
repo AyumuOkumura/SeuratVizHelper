@@ -65,6 +65,125 @@ StackVln(
 
 <img src="example/pbmc_stack_vln.png" width="600" alt="PBMC Stacked Violin Plot">
 
+## How StackVln Works: Step-by-Step Computation Details
+
+Understanding the computational workflow behind `StackVln()` helps you make informed decisions about parameters and interpret your results. Here's what happens under the hood:
+
+### Step 1: Data Preparation and Validation
+
+1. **Assay Selection**: If no assay is specified, the function uses `DefaultAssay()` to select the assay
+2. **Feature Validation**: The function checks that requested features exist in the selected assay
+3. **Group Validation**: Verifies that the `group.by` column exists in the Seurat object's metadata
+
+### Step 2: Cluster Tree Construction
+
+The dendrogram is built using Seurat's `BuildClusterTree()` function. The computation method depends on your `dendrogram_method` parameter:
+
+#### Method A: "dims" (Recommended)
+```
+1. Extract dimensionality reduction data (e.g., PCA)
+   → Uses the specified reduction (default: "pca")
+   
+2. Calculate cluster centroids in reduced space
+   → For each cluster, computes mean coordinates across specified dimensions (default: 1:30)
+   
+3. Compute pairwise distances between cluster centroids
+   → Uses Euclidean distance in the reduced dimensional space
+   
+4. Perform hierarchical clustering
+   → Method: Ward's linkage
+   → Creates dendrogram based on cluster similarities
+```
+
+**Advantages**: Computationally efficient, robust to noise, captures global transcriptomic relationships
+
+#### Method B: "features"
+```
+1. Extract expression data for specified features only
+   → Uses only the genes you're plotting
+   
+2. Calculate average expression per cluster
+   → For each cluster, computes mean expression of each feature
+   
+3. Compute correlation/distance between clusters
+   → Based solely on the selected marker genes
+   
+4. Build hierarchical tree
+   → Ward's linkage clustering on feature-specific relationships
+```
+
+**Advantages**: Shows relationships specific to your markers, useful for focused analysis
+
+#### Method C: "all_variable"
+```
+1. Identify all variable features in the assay
+   → Uses features marked as variable in Seurat object
+   
+2. Extract expression matrix for all variable features
+   → Typically 2000-3000 genes
+   
+3. Calculate cluster-wise average expression
+   → Mean expression across all variable features
+   
+4. Perform hierarchical clustering
+   → Creates comprehensive gene-based dendrogram
+```
+
+**Advantages**: Comprehensive gene-based approach, no dimensionality reduction needed
+
+### Step 3: Cluster Ordering
+
+1. **Extract dendrogram structure** from the built cluster tree
+2. **Determine optimal leaf order** using hierarchical clustering results
+3. **Override with manual order** if `cluster_order` is specified by user
+
+### Step 4: Expression Data Extraction and Scaling
+
+```
+For each feature:
+1. Extract raw expression values from the specified assay
+2. Group cells by cluster (using group.by parameter)
+3. Scale expression to 0-1 range within each feature
+   → Formula: (value - min) / (max - min)
+   → This enables color mapping across different expression scales
+```
+
+### Step 5: Violin Plot Generation
+
+```
+For each feature × cluster combination:
+1. Extract expression distribution for all cells in that cluster
+2. Calculate kernel density estimation
+   → Creates smooth distribution curve
+3. Mirror the density plot to create violin shape
+4. Color violin by mean expression (scaled 0-1)
+   → Low expression → color_low (default: white)
+   → High expression → color_high (default: #BD2130)
+```
+
+### Step 6: Layout Assembly
+
+1. **Create dendrogram plot** with height ratio from `plot_heights[1]`
+2. **Create stacked violin plots** with height ratio from `plot_heights[2]`
+3. **Align plots** vertically using `patchwork` package
+4. **Calculate total plot height**: 
+   - If not specified: `max(5, length(features) × 0.4 + 2)` inches
+   - Ensures adequate space for all features
+
+### Step 7: Export
+
+1. **Create output directory** if it doesn't exist
+2. **Save plot** as PNG with specified dimensions
+   - Default filename: `{seurat_object_name}_stack_vln.png`
+   - Resolution: High-quality for publication
+
+### Key Computational Notes
+
+- **Memory efficiency**: The function processes one feature at a time rather than loading all data at once
+- **Scaling strategy**: Per-feature scaling (not global) ensures each gene is visually comparable
+- **Clustering algorithm**: Uses Ward's criterion (`ward.D2`) which minimizes within-cluster variance
+- **Distance metric**: Euclidean distance in PCA space (for "dims" method) or expression space (other methods)
+
 ## Advanced Usage
 ### Custom Colors
 
