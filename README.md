@@ -48,6 +48,7 @@ StackVln(
 
 genes <- c("CD3D", "CD8A", "CD4", "MS4A1", "CD14")
 
+# With custom tag for organizing marker sets
 StackVln(
   seurat_object = seurat_obj,
   features = genes,
@@ -56,13 +57,37 @@ StackVln(
   ndim = 30,
   plot_width = 5,
   plot_heights = c(0.3, 3), 
-  color_high = "#BD2130"
-  tag = "tag", # → seurat_obj_tag_stack_vln.png
+  color_high = "#BD2130",
+  tag = "immune_markers",  # Adds descriptive tag to filename
   save_dir = file.path("png/ViolinPlot")
-         )
+)
+# Output: seurat_obj_immune_markers_stack_vln.png
 ```
 ## Output
-{seurat_object}_stack_vln.png
+
+### Default Filename Format
+When using `save_dir`, the output filename follows this pattern:
+- **Without tag**: `{seurat_object}_stack_vln.png`
+- **With tag**: `{seurat_object}_{tag}_stack_vln.png`
+
+### Examples
+
+```r
+# Default filename
+StackVln(seurat_obj, features = c("CD3D", "CD8A"), save_dir = "./plots")
+# Output: seurat_obj_stack_vln.png
+
+# With tag - for organizing different marker sets
+StackVln(seurat_obj, features = c("CD3D", "CD8A", "CD4"), 
+         save_dir = "./plots", tag = "tcells")
+# Output: seurat_obj_tcells_stack_vln.png
+
+StackVln(seurat_obj, features = c("MS4A1", "CD79A"), 
+         save_dir = "./plots", tag = "bcells")
+# Output: seurat_obj_bcells_stack_vln.png
+```
+
+**Note**: The `tag` parameter is only used when `save_dir` is specified. If you use `save_path` to provide a full file path, the `tag` parameter will be ignored.
 
 <img src="example/pbmc_stack_vln.png" width="600" alt="PBMC Stacked Violin Plot">
 
@@ -318,6 +343,7 @@ StackVln(seurat_obj, features = genes, plot_heights = c(0.5, 9.5))
 - `plot_width`: Width of the saved plot in inches (default: 10)
 - `save_path`: Full path to save the file. Overrides save_dir
 - `save_dir`: Directory to save the file using a default filename
+- `tag`: Optional tag to add to the filename (default: NULL). When specified with save_dir, generates `{seurat_object}_{tag}_stack_vln.png` instead of `{seurat_object}_stack_vln.png`. Ignored when save_path is used.
 - `ndim`: Number of dimensions for dendrogram (when method = "dims", default: NULL = 30)
 - `dendrogram_method`: Calculation method: "features", "dims" (recommended), or "all_variable" (default: "features")
 - `reduction_for_tree`: Reduction to use for "dims" method (default: "pca")
