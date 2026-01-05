@@ -1,0 +1,154 @@
+---
+title: "SeuratVizHelper Example: Stacked Violin Plot"
+author: "SeuratVizHelper"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.width = 10, fig.height = 8)
+```
+
+## はじめに
+
+このドキュメントでは、SeuratVizHelperパッケージの`StackVln`関数を使用して、
+Scanpy風のスタックバイオリンプロットを作成する方法を示します。
+
+## 必要なライブラリの読み込み
+
+```{r load-libraries}
+# 必要なパッケージを読み込み
+library(Seurat)
+library(SeuratVizHelper)
+
+# データセットのダウンロードに必要なパッケージ
+if (!requireNamespace("SeuratData", quietly = TRUE)) {
+  if (!requireNamespace("remotes", quietly = TRUE)) {
+    install.packages("remotes")
+  }
+  remotes::install_github('satijalab/seurat-data')
+}
+library(SeuratData)
+```
+
+## データセットのダウンロードと読み込み
+
+`pbmc3k`データセットをSeuratDataパッケージからダウンロードして読み込みます。
+このデータセットは、PBMCのデモンストレーションに適したサイズです。
+
+```{r load-data}
+# pbmc3kデータセットをインストール（初回のみ）
+if (!"pbmc3k" %in% InstalledData()$Dataset) {
+  InstallData("pbmc3k")
+}
+
+# pbmc3kデータセットを読み込み
+data("pbmc3k")
+pbmc <- pbmc3k
+
+# データセットの概要を表示
+print(pbmc)
+```
+
+## データの前処理
+
+```{r preprocessing}
+# データが既に処理済みでない場合、基本的な前処理を実行
+if (!"RNA" %in% names(pbmc@assays)) {
+  pbmc <- NormalizeData(pbmc)
+  pbmc <- FindVariableFeatures(pbmc)
+  pbmc <- ScaleData(pbmc)
+}
+
+# クラスターがない場合は作成
+if (!"seurat_clusters" %in% colnames(pbmc@meta.data)) {
+  pbmc <- RunPCA(pbmc, verbose = FALSE)
+  pbmc <- FindNeighbors(pbmc, dims = 1:10, verbose = FALSE)
+  pbmc <- FindClusters(pbmc, resolution = 0.5, verbose = FALSE)
+}
+```
+
+## マーカー遺伝子の指定
+
+以下のマーカー遺伝子を使用してStackVlnプロットを作成します：
+
+```{r define-markers}
+# マーカー遺伝子のリスト
+markers <- c('C1QA', 'PSAP', 'CD79A', 'CD79B', 'CST3', 'LYZ')
+
+# データセットに存在する遺伝子のみを使用
+available_markers <- markers[markers %in% rownames(pbmc)]
+
+if (length(available_markers) == 0) {
+  # 指定されたマーカーが存在しない場合、代替の遺伝子を使用
+  cat("指定されたマーカー遺伝子がデータセットに含まれていません。\n")
+  cat("代替の遺伝子を使用します。\n")
+  # データセットに存在する遺伝子から選択
+  available_markers <- head(VariableFeatures(pbmc), 6)
+}
+
+cat("使用するマーカー遺伝子:\n")
+print(available_markers)
+```
+
+## StackVlnプロットの作成
+
+`StackVln`関数を使用して、Scanpy風のスタックバイオリンプロットを作成します。
+
+```{r stackvln-plot, fig.width=10, fig.height=8}
+# StackVlnプロットの作成
+StackVln(
+  seurat_object = pbmc,
+  features = available_markers,
+  color_high = "#BD2130"
+)
+```
+
+## カスタマイズされたプロット
+
+色をカスタマイズした例：
+
+```{r custom-plot, fig.width=12, fig.height=8}
+# カスタムカラーでプロット
+StackVln(
+  seurat_object = pbmc,
+  features = available_markers,
+  color_low = "lightblue",
+  color_high = "darkred"
+)
+```
+
+## プロットの保存
+
+プロットをファイルに保存する例（`plot_width`パラメータはファイル保存時に適用されます）：
+
+```{r save-plot, eval=FALSE}
+# プロットをファイルに保存
+StackVln(
+  seurat_object = pbmc,
+  features = available_markers,
+  color_high = "#BD2130",
+  plot_width = 12,
+  save_dir = "./figures"
+)
+```
+
+## セッション情報
+
+```{r session-info}
+sessionInfo()
+```
+
+## まとめ
+
+このドキュメントでは、SeuratVizHelperパッケージを使用して：
+
+1. PBMCデータセットを読み込み
+2. マーカー遺伝子を指定
+3. StackVlnプロットを作成
+
+する方法を示しました。詳細なドキュメントは[GitHubリポジトリ](https://github.com/AyumuOkumura/SeuratVizHelper)をご覧ください。
