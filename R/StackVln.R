@@ -163,7 +163,7 @@ StackVln <- function(
     seurat_object <- BuildClusterTree(
       seurat_object,
       assay = assay,
-      features = features,
+      features = features,  # Use validated features
       slot = "data",
       reorder = FALSE,
       verbose = FALSE
@@ -174,7 +174,17 @@ StackVln <- function(
       dims_for_tree <- 1:30
       message("ndim not specified, using default dims = 1:30 for dendrogram calculation")
     } else {
+      # Validate ndim is a positive integer
+      if (!is.numeric(ndim) || length(ndim) != 1 || ndim <= 0 || ndim != as.integer(ndim)) {
+        stop("ndim must be a single positive integer")
+      }
       dims_for_tree <- 1:ndim
+    }
+    
+    # Validate that the reduction exists
+    if (!reduction_for_tree %in% names(seurat_object@reductions)) {
+      stop(sprintf("Reduction '%s' not found in Seurat object. Available reductions: %s",
+                   reduction_for_tree, paste(names(seurat_object@reductions), collapse = ", ")))
     }
     
     seurat_object <- BuildClusterTree(
