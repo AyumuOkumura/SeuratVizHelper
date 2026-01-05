@@ -9,13 +9,16 @@ StackVln(
   features,
   group.by = "seurat_clusters",
   cluster_order = NULL,
-  assay = "SCT",
+  assay = NULL,
   color_low = "white",
   color_high = "#BD2130",
   plot_heights = c(1, 9),
   plot_width = 10,
   save_path = NULL,
-  save_dir = NULL
+  save_dir = NULL,
+  ndim = NULL,
+  dendrogram_method = c("features", "dims", "all_variable"),
+  reduction_for_tree = "pca"
 )
 }
 \arguments{
@@ -27,7 +30,7 @@ StackVln(
 
 \item{cluster_order}{Optional vector to specify cluster order manually.}
 
-\item{assay}{Assay to use (default: "SCT").}
+\item{assay}{Assay to use (default: NULL, uses DefaultAssay()).}
 
 \item{color_low}{Color for low expression (default: "white").}
 
@@ -40,6 +43,13 @@ StackVln(
 \item{save_path}{Full path to save the file. Overrides save_dir.}
 
 \item{save_dir}{Directory to save the file using a default filename.}
+
+\item{ndim}{Number of dimensions to use when dendrogram_method = "dims". If NULL, uses default 1:30.}
+
+\item{dendrogram_method}{Method for calculating dendrogram. Options: "features" (uses specified features),
+"dims" (uses dimensionality reduction - recommended), "all_variable" (uses all variable features).}
+
+\item{reduction_for_tree}{Name of reduction to use when dendrogram_method = "dims" (default: "pca").}
 }
 \value{
 A patchwork object combining the dendrogram and violin plots.
