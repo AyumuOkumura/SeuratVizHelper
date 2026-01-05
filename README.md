@@ -63,6 +63,8 @@ StackVln(
 ## Output
 {seurat_object}_stack_vln.png
 
+<img src="example/pbmc_stack_vln.png" width="600" alt="PBMC Stacked Violin Plot">
+
 ## Advanced Usage
 ### Custom Colors
 
