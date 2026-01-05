@@ -14,6 +14,9 @@
 #' @param plot_width Width of the saved plot in inches (default: 10).
 #' @param save_path Full path to save the file. Overrides save_dir.
 #' @param save_dir Directory to save the file using a default filename.
+#' @param tag Optional tag to add to the filename (default: NULL). When specified with save_dir, 
+#'   the output filename will be {seurat_object}_{tag}_stack_vln.png instead of 
+#'   {seurat_object}_stack_vln.png. Ignored when save_path is provided.
 #' @param ndim Number of dimensions to use when dendrogram_method = "dims". If NULL, uses default 1:30.
 #' @param dendrogram_method Method for calculating dendrogram. Options: "features" (uses specified features), 
 #'   "dims" (uses dimensionality reduction - recommended), "all_variable" (uses all variable features).
@@ -40,6 +43,12 @@
 #' StackVln(pbmc, 
 #'          features = c("CD14", "LYZ"),
 #'          save_dir = "./plots")
+#' 
+#' # Save to file with custom tag
+#' StackVln(pbmc, 
+#'          features = c("CD3D"),
+#'          save_dir = "./plots",
+#'          tag = "tcells")
 #' }
 #'
 #' @import Seurat
@@ -63,6 +72,7 @@ StackVln <- function(
     plot_width = 10,
     save_path = NULL,
     save_dir = NULL,
+    tag = NULL,
     ndim = NULL,
     dendrogram_method = c("features", "dims", "all_variable"),
     reduction_for_tree = "pca"
@@ -126,7 +136,11 @@ StackVln <- function(
       dir.create(save_dir, recursive = TRUE, showWarnings = FALSE)
       message(sprintf("Created directory: %s", save_dir))
     }
-    file_name <- paste0(obj_name, "_stack_vln.png")
+    if (!is.null(tag)) {
+      file_name <- paste0(obj_name, "_", tag, "_stack_vln.png")
+    } else {
+      file_name <- paste0(obj_name, "_stack_vln.png")
+    }
     final_save_path <- file.path(save_dir, file_name)
   }
   
