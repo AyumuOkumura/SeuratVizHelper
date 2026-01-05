@@ -227,6 +227,44 @@ StackVln(
          )
 ```
 
+### Handling Long Cluster Names
+
+When your cluster names are long, they may be cut off at the bottom of the plot. Use the `x_label_margin` parameter to adjust the bottom margin and ensure labels are fully visible.
+
+#### Default Behavior
+```r
+# Default margin (1 inch) - suitable for short cluster names
+StackVln(seurat_obj, 
+         features = c("CD3D", "CD8A"),
+         group.by = "seurat_clusters")
+# Works well for names like: "0", "1", "CD4 T", "CD8 T"
+```
+
+#### Adjusting Margin for Long Names
+```r
+# Moderate adjustment for medium-length names
+StackVln(seurat_obj, 
+         features = c("CD3D", "CD8A"),
+         group.by = "cell_type",
+         x_label_margin = 1.5)
+# Good for: "Naive CD4 T", "Memory B cells"
+
+# Larger adjustment for long names
+StackVln(seurat_obj, 
+         features = c("CD3D", "CD8A"),
+         group.by = "detailed_annotation",
+         x_label_margin = 2.5)
+# Good for: "CD8+ Effector Memory T cells"
+
+# Maximum adjustment for very long names
+StackVln(seurat_obj, 
+         features = c("CD3D", "CD8A"),
+         x_label_margin = 3)
+# Good for: "CD4+ Central Memory T cells (CCR7+)"
+```
+
+**Tip**: Start with the default value and incrementally increase by 0.5 inches until all labels are visible.
+
 ### Dendrogram Calculation Methods
 
 The `StackVln()` function uses Seurat's `BuildClusterTree()` to calculate hierarchical relationships between clusters. Three methods are available:
@@ -330,6 +368,31 @@ StackVln(seurat_obj, features = genes, plot_heights = c(3, 7))
 StackVln(seurat_obj, features = genes, plot_heights = c(0.5, 9.5))
 ```
 
+## Troubleshooting
+
+### Cluster Names are Cut Off
+
+**Problem**: Long cluster names are truncated at the bottom of the saved plot.
+
+**Solution**: Increase the `x_label_margin` parameter:
+```r
+StackVln(seurat_obj, 
+         features = genes,
+         x_label_margin = 2)  # Increase from default 1
+```
+
+Try values between 1 and 3 depending on your label length.
+
+### Plot Height Issues
+
+**Problem**: The plot is too tall or too short.
+
+**Solution**: The height is automatically calculated based on the number of features. For manual control, you can save the plot object and use `ggsave()` with custom dimensions:
+```r
+p <- StackVln(seurat_obj, features = genes)
+ggsave("custom_plot.png", p, width = 10, height = 8, dpi = 300)
+```
+
 ## Function Arguments
 
 - `seurat_object`: Seurat object containing the assay data
@@ -341,6 +404,7 @@ StackVln(seurat_obj, features = genes, plot_heights = c(0.5, 9.5))
 - `color_high`: Color for high expression (default: "#BD2130")
 - `plot_heights`: Numeric vector (length=2) for relative heights of dendrogram and violin (default: c(1, 9))
 - `plot_width`: Width of the saved plot in inches (default: 10)
+- `x_label_margin`: Bottom margin space for x-axis labels in inches (default: 1). Increase this value if cluster names are cut off at the bottom of the plot. Recommended range: 1-3 inches depending on label length.
 - `save_path`: Full path to save the file. Overrides save_dir
 - `save_dir`: Directory to save the file using a default filename
 - `tag`: Optional tag to add to the filename (default: NULL). When specified with save_dir, generates `{seurat_object}_{tag}_stack_vln.png` instead of `{seurat_object}_stack_vln.png`. Ignored when save_path is used.
