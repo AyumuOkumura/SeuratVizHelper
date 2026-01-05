@@ -27,7 +27,9 @@ library(SeuratVizHelper)
 
 # データセットのダウンロードに必要なパッケージ
 if (!requireNamespace("SeuratData", quietly = TRUE)) {
-  install.packages("remotes")
+  if (!requireNamespace("remotes", quietly = TRUE)) {
+    install.packages("remotes")
+  }
   remotes::install_github('satijalab/seurat-data')
 }
 library(SeuratData)
@@ -85,7 +87,7 @@ if (length(available_markers) == 0) {
   # 指定されたマーカーが存在しない場合、代替の遺伝子を使用
   cat("指定されたマーカー遺伝子がデータセットに含まれていません。\n")
   cat("代替の遺伝子を使用します。\n")
-  # pbmc_smallに存在する遺伝子から選択
+  # データセットに存在する遺伝子から選択
   available_markers <- head(VariableFeatures(pbmc), 6)
 }
 
@@ -108,7 +110,7 @@ StackVln(
 
 ## カスタマイズされたプロット
 
-色やプロットサイズをカスタマイズした例：
+色をカスタマイズした例：
 
 ```{r custom-plot, fig.width=12, fig.height=8}
 # カスタムカラーでプロット
@@ -116,8 +118,22 @@ StackVln(
   seurat_object = pbmc,
   features = available_markers,
   color_low = "lightblue",
-  color_high = "darkred",
-  plot_width = 12
+  color_high = "darkred"
+)
+```
+
+## プロットの保存
+
+プロットをファイルに保存する例（`plot_width`パラメータはファイル保存時に適用されます）：
+
+```{r save-plot, eval=FALSE}
+# プロットをファイルに保存
+StackVln(
+  seurat_object = pbmc,
+  features = available_markers,
+  color_high = "#BD2130",
+  plot_width = 12,
+  save_dir = "./figures"
 )
 ```
 
