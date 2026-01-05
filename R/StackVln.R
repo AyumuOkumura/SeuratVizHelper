@@ -12,6 +12,9 @@
 #' @param color_high Color for high expression (default: "#BD2130").
 #' @param plot_heights Vector (len=2) relative heights of dendrogram and violin (default: c(1, 9)).
 #' @param plot_width Width of the saved plot in inches (default: 10).
+#' @param x_label_margin Bottom margin space for x-axis labels in inches (default: 1). 
+#'   Increase this value (e.g., 1.5, 2, or 3) if cluster names are long and getting cut off. 
+#'   This adjusts the plot.margin bottom value.
 #' @param save_path Full path to save the file. Overrides save_dir.
 #' @param save_dir Directory to save the file using a default filename.
 #' @param tag Optional tag to add to the filename (default: NULL). When specified with save_dir, 
@@ -49,6 +52,12 @@
 #'          features = c("CD3D"),
 #'          save_dir = "./plots",
 #'          tag = "tcells")
+#' 
+#' # Adjust bottom margin for long cluster names
+#' StackVln(pbmc, 
+#'          features = c("CD3D", "CD8A"),
+#'          x_label_margin = 2,
+#'          save_dir = "./plots")
 #' }
 #'
 #' @import Seurat
@@ -70,6 +79,7 @@ StackVln <- function(
     color_high = "#BD2130", 
     plot_heights = c(1, 9),
     plot_width = 10,
+    x_label_margin = 1,
     save_path = NULL,
     save_dir = NULL,
     tag = NULL,
@@ -105,6 +115,10 @@ StackVln <- function(
   
   if (length(plot_heights) != 2 || !is.numeric(plot_heights)) {
     stop("plot_heights must be a numeric vector of length 2")
+  }
+  
+  if (!is.numeric(x_label_margin) || length(x_label_margin) != 1 || x_label_margin <= 0) {
+    stop("x_label_margin must be a single positive numeric value")
   }
   
   if (!is.null(cluster_order)) {
@@ -292,7 +306,9 @@ StackVln <- function(
       axis.ticks.y = element_blank(),
       axis.line = element_blank(),
       legend.position = "right",
-      axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, color = "black")
+      axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, color = "black"),
+      # Convert x_label_margin from inches to points (1 inch = 72 points)
+      plot.margin = margin(t = 5, r = 5, b = x_label_margin * 72, l = 5, unit = "pt")
     )
   
   p_final <- p_dendro / p_violin + plot_layout(heights = plot_heights)

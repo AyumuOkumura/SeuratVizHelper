@@ -14,8 +14,10 @@ StackVln(
   color_high = "#BD2130",
   plot_heights = c(1, 9),
   plot_width = 10,
+  x_label_margin = 1,
   save_path = NULL,
   save_dir = NULL,
+  tag = NULL,
   ndim = NULL,
   dendrogram_method = c("features", "dims", "all_variable"),
   reduction_for_tree = "pca"
@@ -40,9 +42,17 @@ StackVln(
 
 \item{plot_width}{Width of the saved plot in inches (default: 10).}
 
+\item{x_label_margin}{Bottom margin space for x-axis labels in inches (default: 1).
+Increase this value (e.g., 1.5, 2, or 3) if cluster names are long and getting cut off.
+This adjusts the plot.margin bottom value.}
+
 \item{save_path}{Full path to save the file. Overrides save_dir.}
 
 \item{save_dir}{Directory to save the file using a default filename.}
+
+\item{tag}{Optional tag to add to the filename (default: NULL). When specified with save_dir,
+the output filename will be {seurat_object}_{tag}_stack_vln.png instead of
+{seurat_object}_stack_vln.png. Ignored when save_path is provided.}
 
 \item{ndim}{Number of dimensions to use when dendrogram_method = "dims". If NULL, uses default 1:30.}
 
@@ -56,4 +66,36 @@ A patchwork object combining the dendrogram and violin plots.
 \description{
 SeuratオブジェクトからScanpy風のスタックバイオリンプロットを描画します。
 デンドログラムによるクラスタ順序の自動調整と、画像保存機能を備えています。
+}
+\examples{
+\dontrun{
+library(Seurat)
+library(SeuratVizHelper)
+
+# Basic usage
+StackVln(pbmc, features = c("CD3D", "CD8A", "CD4"))
+
+# Custom cluster order and colors
+StackVln(pbmc, 
+         features = c("MS4A1", "CD79A"),
+         cluster_order = c("0", "3", "1", "2"),
+         color_high = "darkblue")
+
+# Save to file
+StackVln(pbmc, 
+         features = c("CD14", "LYZ"),
+         save_dir = "./plots")
+
+# Save to file with custom tag
+StackVln(pbmc, 
+         features = c("CD3D"),
+         save_dir = "./plots",
+         tag = "tcells")
+
+# Adjust bottom margin for long cluster names
+StackVln(pbmc, 
+         features = c("CD3D", "CD8A"),
+         x_label_margin = 2,
+         save_dir = "./plots")
+}
 }
