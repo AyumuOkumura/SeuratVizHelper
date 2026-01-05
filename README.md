@@ -27,10 +27,9 @@ library(SeuratVizHelper)
 # Load your Seurat object
 pbmc <- readRDS("pbmc.rds")
 
-# Create a stacked violin plot
+# Create a stacked violin plot (uses DefaultAssay automatically)
 StackVln(pbmc, 
          features = c("CD3D", "CD8A", "CD4", "MS4A1", "CD14"),
-         assay = "RNA",
          color_high = "#BD2130")
 
 # Save to file
@@ -53,6 +52,7 @@ StackVln(pbmc,
 ### Different Assay and Grouping
 
 ```r
+# Specify a different assay (otherwise uses DefaultAssay)
 StackVln(pbmc,
          features = c("nFeature_RNA", "nCount_RNA"),
          group.by = "cell_type",
@@ -196,7 +196,7 @@ StackVln(pbmc,
 - `features`: Character vector of gene names to plot
 - `group.by`: Column name in meta.data for grouping (default: "seurat_clusters")
 - `cluster_order`: Optional character vector to specify cluster order manually
-- `assay`: Assay to use (default: "SCT")
+- `assay`: Assay to use (default: NULL, automatically uses DefaultAssay())
 - `color_low`: Color for low expression (default: "white")
 - `color_high`: Color for high expression (default: "#BD2130")
 - `plot_heights`: Numeric vector (length=2) for relative heights of dendrogram and violin (default: c(1, 9))

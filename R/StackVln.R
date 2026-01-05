@@ -7,7 +7,7 @@
 #' @param features Vector of gene names to plot.
 #' @param group.by Column name in meta.data for grouping (default: "seurat_clusters").
 #' @param cluster_order Optional vector to specify cluster order manually.
-#' @param assay Assay to use (default: "SCT").
+#' @param assay Assay to use (default: NULL, uses DefaultAssay()).
 #' @param color_low Color for low expression (default: "white").
 #' @param color_high Color for high expression (default: "#BD2130").
 #' @param plot_heights Vector (len=2) relative heights of dendrogram and violin (default: c(1, 9)).
@@ -55,7 +55,7 @@ StackVln <- function(
     features,
     group.by = "seurat_clusters",
     cluster_order = NULL,
-    assay = "SCT",
+    assay = NULL,
     color_low = "white",
     color_high = "#BD2130", 
     plot_heights = c(1, 9),
@@ -70,6 +70,12 @@ StackVln <- function(
   # Input validation
   if (!inherits(seurat_object, "Seurat")) {
     stop("seurat_object must be a Seurat object")
+  }
+  
+  # Auto-detect assay if not specified
+  if (is.null(assay)) {
+    assay <- DefaultAssay(seurat_object)
+    message(sprintf("Using default assay: %s", assay))
   }
   
   if (!is.character(features) || length(features) == 0) {
