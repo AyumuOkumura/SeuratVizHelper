@@ -67,15 +67,15 @@ StackVln <- function(
     reduction_for_tree = "pca"
 ) {
   
+  # Input validation
+  if (!inherits(seurat_object, "Seurat")) {
+    stop("seurat_object must be a Seurat object")
+  }
+  
   # Auto-detect assay if not specified
   if (is.null(assay)) {
     assay <- DefaultAssay(seurat_object)
     message(sprintf("Using default assay: %s", assay))
-  }
-  
-  # Input validation
-  if (!inherits(seurat_object, "Seurat")) {
-    stop("seurat_object must be a Seurat object")
   }
   
   if (!is.character(features) || length(features) == 0) {

@@ -46,8 +46,7 @@ StackVln(
 
 \item{ndim}{Number of dimensions to use when dendrogram_method = "dims". If NULL, uses default 1:30.}
 
-\item{dendrogram_method}{Method for calculating dendrogram. Options: "features" (uses specified features),
-"dims" (uses dimensionality reduction - recommended), "all_variable" (uses all variable features).}
+\item{dendrogram_method}{Method for calculating dendrogram. Options: "features" (uses specified features), "dims" (uses dimensionality reduction - recommended), "all_variable" (uses all variable features).}
 
 \item{reduction_for_tree}{Name of reduction to use when dendrogram_method = "dims" (default: "pca").}
 }
