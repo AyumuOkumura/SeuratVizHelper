@@ -29,44 +29,47 @@ library(Seurat)
 library(SeuratVizHelper)
 
 # Load your Seurat object
-pbmc <- readRDS("pbmc.rds")
+seurat_obj <- readRDS("seurat_obj.rds")
 
 # Create a stacked violin plot (uses DefaultAssay automatically)
-StackVln(pbmc, 
+StackVln(seurat_obj, 
          features = c("CD3D", "CD8A", "CD4", "MS4A1", "CD14"),
          color_high = "#BD2130")
 
 # Save to file
-StackVln(pbmc, 
-         features = c("IL7R", "CCR7", "S100A4"),
-         save_dir = "./figures",
-         plot_width = 12)
+ndim = 20
+StackVln(
+  seurat_object = seurat_obj,
+  features = c("IL7R", "CCR7", "S100A4"),
+  group.by = "seurat_clusters",
+  dendrogram_method = "dims",
+  ndim = ndim,
+  plot_width = 12,
+  plot_heights = c(0.3, 3),
+  # Define the height ratio between the "top graph (dendrogram)" and "bottom graph (violin plot)"
+  save_dir = "./figures",
+         )
+
+genes <- c("CD3D", "CD8A", "CD4", "MS4A1", "CD14")
+
+StackVln(
+  seurat_object = seurat_obj,
+  features = genes,
+  group.by = "seurat_clusters",
+  dendrogram_method = "dims",
+  ndim = 30,
+  plot_width = 5,
+  plot_heights = c(0.3, 3), 
+  color_high = "#BD2130"
+  save_dir = file.path("png/ViolinPlot")
+         )
 ```
 
 ## Advanced Usage
-
-### Custom Cluster Order
-
-```r
-StackVln(pbmc,
-         features = c("CD79A", "MS4A1"),
-         cluster_order = c("3", "0", "1", "2", "4"))
-```
-
-### Different Assay and Grouping
-
-```r
-# Specify a different assay (otherwise uses DefaultAssay)
-StackVln(pbmc,
-         features = c("nFeature_RNA", "nCount_RNA"),
-         group.by = "cell_type",
-         assay = "SCT")
-```
-
 ### Custom Colors
 
 ```r
-StackVln(pbmc,
+StackVln(seurat_obj,
          features = c("CD3D", "CD8A"),
          color_low = "lightblue",
          color_high = "darkred")
@@ -82,14 +85,14 @@ This method uses PCA or other dimensionality reduction results to calculate clus
 
 ```r
 # Use first 50 PCA dimensions
-StackVln(pbmc,
+StackVln(seurat_obj,
          features = c("CD3D", "CD8A", "CD4"),
          dendrogram_method = "dims",
          ndim = 50,
          reduction_for_tree = "pca")
 
 # Use default 30 dimensions (ndim not specified)
-StackVln(pbmc,
+StackVln(seurat_obj,
          features = c("CD3D", "CD8A", "CD4"),
          dendrogram_method = "dims")
 ```
@@ -106,7 +109,7 @@ StackVln(pbmc,
 This method calculates the dendrogram based only on the genes you're plotting.
 
 ```r
-StackVln(pbmc,
+StackVln(seurat_obj,
          features = c("CD3D", "CD8A", "CD4", "MS4A1", "CD14"),
          dendrogram_method = "features")
 ```
@@ -121,7 +124,7 @@ StackVln(pbmc,
 This method uses all variable features identified in your Seurat object.
 
 ```r
-StackVln(pbmc,
+StackVln(seurat_obj,
          features = c("CD3D", "CD8A"),
          dendrogram_method = "all_variable")
 ```
@@ -151,7 +154,7 @@ Examples:
 
 ```r
 # Wider plot for many clusters
-StackVln(pbmc,
+StackVln(seurat_obj,
          features = c("CD3D", "CD8A"),
          plot_width = 15)
 ```
@@ -162,37 +165,17 @@ The `plot_heights` parameter controls the relative space allocated to dendrogram
 
 ```r
 # Default: minimal dendrogram, focus on violins
-StackVln(pbmc, features = genes, plot_heights = c(1, 9))
+StackVln(seurat_obj, features = genes, plot_heights = c(1, 9))
 
 # Emphasize dendrogram
-StackVln(pbmc, features = genes, plot_heights = c(2, 8))
+StackVln(seurat_obj, features = genes, plot_heights = c(2, 8))
 
 # Larger dendrogram for detailed branch structure
-StackVln(pbmc, features = genes, plot_heights = c(3, 7))
+StackVln(seurat_obj, features = genes, plot_heights = c(3, 7))
 
 # Minimal dendrogram
-StackVln(pbmc, features = genes, plot_heights = c(0.5, 9.5))
+StackVln(seurat_obj, features = genes, plot_heights = c(0.5, 9.5))
 ```
-
-#### Publication-Quality Settings
-
-```r
-# For journal submission (Nature/Cell style)
-StackVln(pbmc,
-         features = c("CD3D", "CD8A", "CD4", "MS4A1", "CD14",
-                      "FCGR3A", "LYZ", "PPBP", "IL7R", "CCR7"),
-         plot_width = 15,
-         plot_heights = c(1.5, 8.5),
-         dendrogram_method = "dims",
-         ndim = 50,
-         save_dir = "./figures")
-```
-
-**Tips:**
-- Check journal requirements for figure dimensions
-- Use DPI 300 for publication quality (automatically set in ggsave)
-- Wider plots work better for many clusters (>8)
-- Taller plots work better for many features (>10)
 
 ## Function Arguments
 
