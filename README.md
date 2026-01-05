@@ -57,6 +57,7 @@ StackVln(
   plot_width = 5,
   plot_heights = c(0.3, 3), 
   color_high = "#BD2130"
+  tag = "tag", # → seurat_obj_tag_stack_vln.png
   save_dir = file.path("png/ViolinPlot")
          )
 ```
