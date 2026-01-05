@@ -228,6 +228,9 @@ MIT License
 ## Issues & Contributions
 
 Please report issues at: https://github.com/AyumuOkumura/SeuratVizHelper/issues
-
 Contributions are welcome via pull requests!
 
+## acknowledgement
+
+- seurat <https://satijalab.org/seurat/>
+- scannpy stacked_violin <https://scanpy.readthedocs.io/en/stable/generated/scanpy.pl.stacked_violin.html>
