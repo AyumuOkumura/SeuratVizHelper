@@ -4,22 +4,22 @@
 
 ## Features
 
-🇺🇸 English
-Bring Scanpy-style aesthetics to Seurat.
+#### 🇺🇸 English
+**Bring Scanpy-style aesthetics to Seurat.**
 - 📊 **Stacked Violin Plots**: Create compact, Scanpy-style stacked violin plots colored by median expression.
 - 🌳 **Automatic Clustering**: Dendrogram-based cluster ordering `BuildClusterTree()`
 - 🎨 **Customizable**: Adjustable colors, sizes, and cluster orders
 - 💾 **Easy Export**: Built-in .png saving.
 
-🇯🇵 日本語
-SeuratでScanpyライクな可視化を実現。
+#### 🇯🇵 日本語
+**SeuratでScanpyライクな可視化を実現。**
 - 📊 **スタックバイオリンプロット**: Scanpy風の発現中央値で色付けされた積層型バイオリンプロットを簡単に描画。
 - 🌳 **自動クラスタリング**: BuildClusterTree() のデンドログラムに基づき、クラスタ順序を自動で生物学的に整列。
 - 🎨 **高いカスタマイズ性**: 色、サイズ、表示順序を柔軟に調整可能。
 - 💾 **簡単保存: 高解像度** .png 出力機能を内蔵。
 
-🇨🇳 中文 (Simplified)
-在 Seurat 中实现 Scanpy 风格的可视化。
+#### 🇨🇳 中文 (Simplified)
+**在 Seurat 中实现 Scanpy 风格的可视化。**
 - 📊 **堆叠小提琴图**: 绘制 Scanpy 风格的堆叠小提琴图 (Stacked Violin Plot)，并根据表达中位数填充颜色。
 - 🌳 **自动聚类排序**: 利用 BuildClusterTree() 树状图自动调整聚类顺序。
 - 🎨 **高度可定制**: 灵活调整颜色、尺寸和基因分组。
@@ -55,7 +55,7 @@ SeuratでScanpyライクな可視化を実現。
 
 ---
 ## 🏷️ Keywords / Tags
-'R' 'Seurat' 'scRNA-seq' 'Single-cell Visualization' 'Stacked Violin Plot' 'Scanpy' 'BuildClusterTree' 'Dendrogram'
+`R` `Seurat` `scRNA-seq` `Single-cell Visualization` `Stacked Violin Plot` `Scanpy` `BuildClusterTree` `Dendrogram`
 ---
 
 ## AI Usage
