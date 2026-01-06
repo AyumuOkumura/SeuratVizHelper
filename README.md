@@ -14,7 +14,7 @@ Bring Scanpy-style aesthetics to Seurat.
 🇯🇵 日本語
 SeuratでScanpyライクな可視化を実現。
 - 📊 **スタックバイオリンプロット**: Scanpy風の発現中央値で色付けされた積層型バイオリンプロットを簡単に描画。
-- 🌳 ** 自動クラスタリング**: BuildClusterTree() のデンドログラムに基づき、クラスタ順序を自動で生物学的に整列。
+- 🌳 **自動クラスタリング**: BuildClusterTree() のデンドログラムに基づき、クラスタ順序を自動で生物学的に整列。
 - 🎨 **高いカスタマイズ性**: 色、サイズ、表示順序を柔軟に調整可能。
 - 💾 **簡単保存: 高解像度** .png 出力機能を内蔵。
 
@@ -25,8 +25,38 @@ SeuratでScanpyライクな可視化を実現。
 - 🎨 **高度可定制**: 灵活调整颜色、尺寸和基因分组。
 - 💾 **便捷导出**: 内置高分辨率 .png 保存功能。
 
+#### 🇩🇪 Deutsch
+**Scanpy-artige Ästhetik für Seurat.**
+- 📊 **Gestapelte Violin-Plots**: Erstellen Sie kompakte, Scanpy-artige gestapelte Violin-Plots, gefärbt nach **Median-Expression**.
+- 🌳 **Automatische Cluster-Sortierung**: Automatische Anordnung der Cluster basierend auf `BuildClusterTree()` Dendrogrammen.
+- 🎨 **Anpassbar**: Farben, Größen und Cluster-Reihenfolgen sind flexibel einstellbar.
+- 💾 **Einfacher Export**: Integrierte Funktion zum Speichern hochauflösender `.png`-Dateien.
+
+#### 🇪🇸 Español
+**Estética estilo Scanpy en Seurat.**
+- 📊 **Gráficos de Violín Apilados**: Cree gráficos compactos estilo Scanpy, coloreados según la **expresión mediana**.
+- 🌳 **Agrupamiento Automático**: Reordenación automática de clústeres basada en dendrogramas de `BuildClusterTree()`.
+- 🎨 **Personalizable**: Colores, tamaños y orden de clústeres totalmente ajustables.
+- 💾 **Exportación Fácil**: Guardado integrado de imágenes `.png` de alta resolución.
+
+#### 🇵🇹 Português
+**Estética estilo Scanpy no Seurat.**
+- 📊 **Violin Plots Empilhados**: Crie plots compactos estilo Scanpy, coloridos pela **expressão mediana**.
+- 🌳 **Clusterização Automática**: Reordenação automática de clusters baseada em dendrogramas do `BuildClusterTree()`.
+- 🎨 **Personalizável**: Cores, tamanhos e ordens de clusters totalmente ajustáveis.
+- 💾 **Exportação Fácil**: Salvamento integrado em `.png` de alta resolução.
+
+#### 🇮🇩 Bahasa Indonesia
+**Hadirkan estetika gaya Scanpy ke Seurat.**
+- 📊 **Stacked Violin Plots**: Buat plot biola bertumpuk gaya Scanpy yang ringkas, diwarnai berdasarkan **ekspresi median**.
+- 🌳 **Klasterisasi Otomatis**: Pengurutan ulang klaster secara otomatis berdasarkan dendrogram `BuildClusterTree()`.
+- 🎨 **Dapat Disesuaikan**: Warna, ukuran, dan urutan klaster yang fleksibel.
+- 💾 **Ekspor Mudah**: Fitur penyimpanan `.png` resolusi tinggi bawaan.
+
+---
 ## 🏷️ Keywords / Tags
 'R' 'Seurat' 'scRNA-seq' 'Single-cell Visualization' 'Stacked Violin Plot' 'Scanpy' 'BuildClusterTree' 'Dendrogram'
+---
 
 ## AI Usage
 
