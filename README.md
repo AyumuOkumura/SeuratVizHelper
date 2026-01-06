@@ -1,7 +1,6 @@
 # SeuratVizHelper
-**SeuratVizHelper** makes single-cell visualization in Seurat easier and more publication-ready. 
 
-## Features **Bring Scanpy-style aesthetics to Seurat.**
+## Features **Bring Scanpy-style stacked violin plots to Seurat.**
 - 📊 **Stacked Violin Plots**: Create compact, Scanpy-style stacked violin plots colored by median expression.
 - 🌳 **Automatic Clustering**: Dendrogram-based cluster ordering `BuildClusterTree()`
 - 🎨 **Customizable**: Adjustable colors, sizes, and cluster orders
