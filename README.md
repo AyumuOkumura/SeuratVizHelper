@@ -427,7 +427,7 @@ MIT License
 Please report issues at: https://github.com/AyumuOkumura/SeuratVizHelper/issues
 Contributions are welcome via pull requests!
 
-## acknowledgement
+## Links
 
 - seurat <https://satijalab.org/seurat/>
 - scannpy stacked_violin <https://scanpy.readthedocs.io/en/stable/generated/scanpy.pl.stacked_violin.html>
@@ -506,7 +506,54 @@ Contributions are welcome via pull requests!
 - 🎨 **ปรับแต่งได้เต็มที่**: สามารถปรับแต่งสี ขนาด และลำดับคลัสเตอร์ได้อย่างอิสระ
 - 💾 **ส่งออกไฟล์ง่าย**: มีฟังก์ชันบันทึกไฟล์ `.png` ความละเอียดสูงในตัว
 
+#### 🇸🇪 Svenska (Swedish)
+- 📊 **Staplade Violinplots**: Skapa kompakta staplade violinplots i Scanpy-stil, färglagda efter **medianuttryck** (median expression).
+- 🌳 **Automatisk Klustring**: Automatisk omordning av kluster baserat på `BuildClusterTree()`-dendrogram.
+- 🎨 **Anpassningsbar**: Färger, storlekar och klusterordning är helt justerbara.
+- 💾 **Enkel Export**: Inbyggd funktion för att spara högupplösta `.png`-filer.
+
+#### 🇩🇰 Dansk (Danish)
+- 📊 **Stakede Violinplots**: Opret kompakte, stakede violinplots i Scanpy-stil, farvet efter **medianudtryk**.
+- 🌳 **Automatisk Klyngedannelse**: Automatisk sortering af klynger baseret på `BuildClusterTree()`-dendrogrammer.
+- 🎨 **Kan Tilpasses**: Farver, størrelser og klyngeorden kan justeres fuldt ud.
+- 💾 **Nem Eksport**: Indbygget funktion til lagring af højopløselige `.png`-filer.
+
+#### 🇮🇹 Italiano (Italian)
+- 📊 **Violin Plot Impilati**: Crea grafici a violino impilati compatti in stile Scanpy, colorati in base all'**espressione mediana**.
+- 🌳 **Clustering Automatico**: Riordinamento automatico dei cluster basato sui dendrogrammi di `BuildClusterTree()`.
+- 🎨 **Personalizzabile**: Colori, dimensioni e ordine dei cluster completamente regolabili.
+- 💾 **Esportazione Facile**: Funzione integrata per il salvataggio di immagini `.png` ad alta risoluzione.
+
+#### 🇸🇦 العربية (Arabic)
+- 📊 **مخططات الكمان المكدسة**: إنشاء مخططات كمان (Violin Plots) مكدسة ومدمجة بأسلوب Scanpy، ملونة حسب **متوسط التعبير** (median expression).
+- 🌳 **تجميع تلقائي**: إعادة ترتيب المجموعات (Clusters) تلقائيًا بناءً على المخططات الشجرية لـ `BuildClusterTree()`.
+- 🎨 **قابل للتخصيص**: الألوان والأحجام وترتيب المجموعات قابلة للتعديل بالكامل.
+- 💾 **تصدير سهل**: ميزة مدمجة لحفظ ملفات `.png` عالية الدقة.
+#### 🇮🇳 हिन्दी (Hindi)
+- 📊 **स्टैक्ड वायलिन प्लॉट्स**: **मीडियन एक्सप्रेशन** (median expression) द्वारा रंगे हुए कॉम्पैक्ट, Scanpy-शैली के स्टैक्ड वायलिन प्लॉट्स बनाएं।
+- 🌳 **स्वचालित क्लस्टरिंग**: `BuildClusterTree()` डेंड्रोग्राम के आधार पर क्लस्टरों को स्वचालित रूप से पुन: व्यवस्थित करें।
+- 🎨 **अनुकूलन योग्य**: रंग, आकार और क्लस्टर क्रम पूरी तरह से समायोज्य हैं।
+- 💾 **आसान निर्यात**: उच्च-रिज़ॉल्यूशन `.png` सेविंग की अंतर्निहित सुविधा।
+
+#### 🇹🇷 Türkçe (Turkish)
+- 📊 **Yığılmış Keman Grafikleri**: **Medyan ekspresyonuna** göre renklendirilmiş, kompakt, Scanpy tarzı yığılmış keman grafikleri (Stacked Violin Plots) oluşturun.
+- 🌳 **Otomatik Kümeleme**: `BuildClusterTree()` dendrogramlarına dayalı olarak kümeleri otomatik yeniden sıralayın.
+- 🎨 **Özelleştirilebilir**: Renkler, boyutlar ve küme sıraları tamamen ayarlanabilir.
+- 💾 **Kolay Dışa Aktarım**: Dahili yüksek çözünürlüklü `.png` kaydetme özelliği.
+
+#### 🇵🇱 Polski (Polish)
+- 📊 **Ułożone Wykresy Skrzypcowe**: Twórz kompaktowe wykresy skrzypcowe (Stacked Violin Plots) w stylu Scanpy, kolorowane według **mediany ekspresji**.
+- 🌳 **Automatyczne Klastrowanie**: Automatyczna zmiana kolejności klastrów w oparciu o dendrogramy `BuildClusterTree()`.
+- 🎨 **Konfigurowalne**: Kolory, rozmiary i kolejność klastrów są w pełni regulowane.
+- 💾 **Łatwy Eksport**: Wbudowana funkcja zapisywania plików `.png` w wysokiej rozdzielczości.
+
+#### 🇻🇳 Tiếng Việt (Vietnamese)
+- 📊 **Biểu đồ Violin Xếp chồng**: Tạo các biểu đồ violin xếp chồng (Stacked Violin Plots) gọn gàng theo phong cách Scanpy, được tô màu theo **biểu hiện trung vị** (median expression).
+- 🌳 **Phân cụm Tự động**: Tự động sắp xếp lại các cụm dựa trên biểu đồ dendrogram `BuildClusterTree()`.
+- 🎨 **Có thể Tùy chỉnh**: Màu sắc, kích thước và thứ tự cụm hoàn toàn có thể điều chỉnh.
+- 💾 **Xuất Dễ dàng**: Tích hợp tính năng lưu file `.png` độ phân giải cao.
+
 ---
-### 🏷️ Keywords / Tags
-#### `Single-cell Visualization` `Stacked ViolinPlot`
+#### 🏷️ Keywords / Tags
+##### `Single-cell Visualization` `Stacked ViolinPlot`
 ---
