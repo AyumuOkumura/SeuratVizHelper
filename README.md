@@ -6,7 +6,7 @@
 - 🎨 **Customizable**: Adjustable colors, sizes, and cluster orders
 - 💾 **Easy Export**: Built-in .png saving.
 
-🌍 [**Multilingual Overview**](https://github.com/AyumuOkumura/SeuratVizHelper/blob/master/README.md#-multilingual-overview)
+🌍 [**Multilingual Overview**](https://github.com/AyumuOkumura/SeuratVizHelper/blob/master/README.md#-multilingual-overview-1)
 ---
 ## AI Usage
 
