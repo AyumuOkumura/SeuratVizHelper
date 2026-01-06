@@ -433,59 +433,77 @@ Contributions are welcome via pull requests!
 - scannpy stacked_violin <https://scanpy.readthedocs.io/en/stable/generated/scanpy.pl.stacked_violin.html>
 
 ## 🌍 Multilingual Overview
-#### 🇯🇵 日本語 **SeuratでScanpyライクな可視化を実現。**
+#### 🇯🇵 日本語 
 - 📊 **スタックバイオリンプロット**: Scanpy風の発現中央値で色付けされた積層型バイオリンプロットを簡単に描画。
 - 🌳 **自動クラスタリング**: BuildClusterTree() のデンドログラムに基づき、クラスタ順序を自動で生物学的に整列。
 - 🎨 **高いカスタマイズ性**: 色、サイズ、表示順序を柔軟に調整可能。
 - 💾 **簡単保存: 高解像度** .png 出力機能を内蔵。
 
-#### 🇨🇳 中文 (Simplified) **在 Seurat 中实现 Scanpy 风格的可视化。**
+#### 🇨🇳 中文 (Simplified) 
 - 📊 **堆叠小提琴图**: 绘制 Scanpy 风格的堆叠小提琴图 (Stacked Violin Plot)，并根据表达中位数填充颜色。
 - 🌳 **自动聚类排序**: 利用 BuildClusterTree() 树状图自动调整聚类顺序。
 - 🎨 **高度可定制**: 灵活调整颜色、尺寸和基因分组。
 - 💾 **便捷导出**: 内置高分辨率 .png 保存功能。
 
-#### 🇩🇪 Deutsch **Scanpy-artige Ästhetik für Seurat.**
+#### 🇩🇪 Deutsch 
 - 📊 **Gestapelte Violin-Plots**: Erstellen Sie kompakte, Scanpy-artige gestapelte Violin-Plots, gefärbt nach **Median-Expression**.
 - 🌳 **Automatische Cluster-Sortierung**: Automatische Anordnung der Cluster basierend auf `BuildClusterTree()` Dendrogrammen.
 - 🎨 **Anpassbar**: Farben, Größen und Cluster-Reihenfolgen sind flexibel einstellbar.
 - 💾 **Einfacher Export**: Integrierte Funktion zum Speichern hochauflösender `.png`-Dateien.
 
-#### 🇪🇸 Español **Estética estilo Scanpy en Seurat.**
+#### 🇪🇸 Español 
 - 📊 **Gráficos de Violín Apilados**: Cree gráficos compactos estilo Scanpy, coloreados según la **expresión mediana**.
 - 🌳 **Agrupamiento Automático**: Reordenación automática de clústeres basada en dendrogramas de `BuildClusterTree()`.
 - 🎨 **Personalizable**: Colores, tamaños y orden de clústeres totalmente ajustables.
 - 💾 **Exportación Fácil**: Guardado integrado de imágenes `.png` de alta resolución.
 
-#### 🇵🇹 Português **Estética estilo Scanpy no Seurat.**
+#### 🇵🇹 Português 
 - 📊 **Violin Plots Empilhados**: Crie plots compactos estilo Scanpy, coloridos pela **expressão mediana**.
 - 🌳 **Clusterização Automática**: Reordenação automática de clusters baseada em dendrogramas do `BuildClusterTree()`.
 - 🎨 **Personalizável**: Cores, tamanhos e ordens de clusters totalmente ajustáveis.
 - 💾 **Exportação Fácil**: Salvamento integrado em `.png` de alta resolução.
 
-#### 🇮🇩 Bahasa Indonesia **Hadirkan estetika gaya Scanpy ke Seurat.**
+#### 🇮🇩 Bahasa Indonesia 
 - 📊 **Stacked Violin Plots**: Buat plot biola bertumpuk gaya Scanpy yang ringkas, diwarnai berdasarkan **ekspresi median**.
 - 🌳 **Klasterisasi Otomatis**: Pengurutan ulang klaster secara otomatis berdasarkan dendrogram `BuildClusterTree()`.
 - 🎨 **Dapat Disesuaikan**: Warna, ukuran, dan urutan klaster yang fleksibel.
 - 💾 **Ekspor Mudah**: Fitur penyimpanan `.png` resolusi tinggi bawaan.
 
-#### 🇫🇷 Français **Apportez l'esthétique de Scanpy à Seurat.**
+#### 🇫🇷 Français 
 - 📊 **Tracés en Violon Empilés**: Créez des "Stacked Violin Plots" compacts de style Scanpy, colorés par **expression médiane**.
 - 🌳 **Clustering Automatique**: Réorganisation automatique des clusters basée sur les dendrogrammes de `BuildClusterTree()`.
 - 🎨 **Personnalisable**: Couleurs, tailles et ordres des clusters entièrement ajustables.
 - 💾 **Export Facile**: Fonction intégrée pour sauvegarder en `.png` haute résolution.
 
-#### 🇰🇷 한국어 **Seurat에 Scanpy 스타일의 미학을 더하세요.**
+#### 🇰🇷 한국어 
 - 📊 **스택 바이올린 플롯**: **중앙값 발현(median expression)**으로 채색된 컴팩트한 Scanpy 스타일의 스택 바이올린 플롯을 생성합니다.
 - 🌳 **자동 클러스터링**: `BuildClusterTree()` 덴드로그램을 기반으로 클러스터 순서를 자동으로 재정렬합니다.
 - 🎨 **사용자 정의 가능**: 색상, 크기 및 클러스터 순서를 완벽하게 조정할 수 있습니다.
 - 💾 **간편한 내보내기**: 고해상도 `.png` 저장 기능이 내장되어 있습니다.
 
-#### 🇷🇺 Русский **Эстетика в стиле Scanpy для Seurat.**
+#### 🇷🇺 Русский 
 - 📊 **Стекированные Скрипичные Диаграммы**: Создавайте компактные диаграммы в стиле Scanpy, окрашенные по **медианной экспрессии**.
 - 🌳 **Автоматическая Кластеризация**: Автоматическое переупорядочивание кластеров на основе дендрограмм `BuildClusterTree()`.
 - 🎨 **Настраиваемость**: Полностью настраиваемые цвета, размеры и порядок кластеров.
 - 💾 **Легкий Экспорт**: Встроенная функция сохранения в высоком разрешении `.png`.
+
+#### 🇮🇱 עברית (Hebrew)
+- 📊 **Stacked Violin Plots**: יצירת תרשימי כינור מוערמים קומפקטיים בסגנון Scanpy, הצבועים לפי **חציון הביטוי (median expression)**.
+- 🌳 **Automatic Clustering**: סידור מחדש אוטומטי של אשכולות על בסיס דנדרוגרמות `BuildClusterTree()`.
+- 🎨 **Customizable**: צבעים, גדלים וסדרי אשכולות ניתנים להתאמה מלאה.
+- 💾 **Easy Export**: שמירה מובנית של קבצי `.png` ברזולוציה גבוהה.
+
+#### 🇮🇷 فارسی (Persian)
+- 📊 **Stacked Violin Plots**: ایجاد نمودارهای ویولن انباشته فشرده به سبک Scanpy، رنگ‌آمیزی شده بر اساس **میانه بیان (median expression)**.
+- 🌳 **Automatic Clustering**: مرتب‌سازی مجدد خودکار خوشه‌ها بر اساس دندروگرام‌های `BuildClusterTree()`.
+- 🎨 **Customizable**: رنگ‌ها، اندازه‌ها و ترتیب خوشه‌ها کاملاً قابل تنظیم هستند.
+- 💾 **Easy Export**: قابلیت ذخیره داخلی فایل‌های `.png` با وضوح بالا.
+
+#### 🇹🇭 ไทย (Thai)
+- 📊 **Stacked Violin Plots**: สร้าง Stacked Violin Plots แบบกะทัดรัดในสไตล์ Scanpy โดยระบายสีตาม **ค่ามัธยฐานของการแสดงออก (median expression)**
+- 🌳 **Automatic Clustering**: จัดเรียงลำดับคลัสเตอร์ใหม่โดยอัตโนมัติตามเดนโดรแกรม `BuildClusterTree()`
+- 🎨 **Customizable**: สามารถปรับแต่งสี ขนาด และลำดับคลัสเตอร์ได้อย่างเต็มที่
+- 💾 **Easy Export**: มีฟังก์ชันบันทึกไฟล์ `.png` ความละเอียดสูงในตัว
 
 ---
 ### 🏷️ Keywords / Tags
