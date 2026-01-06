@@ -54,10 +54,6 @@
 - 💾 **Ekspor Mudah**: Fitur penyimpanan `.png` resolusi tinggi bawaan.
 
 ---
-## 🏷️ Keywords / Tags
-`R` `Seurat` `scRNA-seq` `Single-cell Visualization` `Stacked Violin Plot` `Scanpy` `BuildClusterTree` `Dendrogram`
----
-
 ## AI Usage
 
 This package was made by AI coding tools (Gemini and Github copilot)
@@ -484,3 +480,8 @@ Contributions are welcome via pull requests!
 
 - seurat <https://satijalab.org/seurat/>
 - scannpy stacked_violin <https://scanpy.readthedocs.io/en/stable/generated/scanpy.pl.stacked_violin.html>
+
+---
+## 🏷️ Keywords / Tags
+`R` `Seurat` `scRNA-seq` `Single-cell Visualization` `Stacked Violin Plot` `Scanpy` `BuildClusterTree` `Dendrogram`
+---
