@@ -1,6 +1,6 @@
 # SeuratVizHelper
 
-## Features **Bring Scanpy-style stacked violin plots to Seurat.**
+## **Bring Scanpy-style stacked violin plots to Seurat.**
 - 📊 **Stacked Violin Plots**: Create compact, Scanpy-style stacked violin plots colored by median expression.
 - 🌳 **Automatic Clustering**: Dendrogram-based cluster ordering `BuildClusterTree()`
 - 🎨 **Customizable**: Adjustable colors, sizes, and cluster orders
