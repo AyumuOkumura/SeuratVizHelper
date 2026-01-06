@@ -5,7 +5,8 @@
 - 🌳 **Automatic Clustering**: Dendrogram-based cluster ordering `BuildClusterTree()`
 - 🎨 **Customizable**: Adjustable colors, sizes, and cluster orders
 - 💾 **Easy Export**: Built-in .png saving.
-🌍 [**Multilingual Overview**]()
+
+🌍 [**Multilingual Overview**](https://github.com/AyumuOkumura/SeuratVizHelper/blob/master/README.md#-multilingual-overview)
 ---
 ## AI Usage
 
