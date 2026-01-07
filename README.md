@@ -224,43 +224,93 @@ StackVln(
          )
 ```
 
-### Handling Long Cluster Names
+### Adjusting Label Margins for Long Cluster Names
 
-When your cluster names are long, they may be cut off at the bottom of the plot. Use the `x_label_margin` parameter to adjust the bottom margin and ensure labels are fully visible.
+When cluster names are long and rotated at 45°, they may be cut off at the **bottom** or **left side** of the plot. Use margin parameters to ensure full visibility.
 
-#### Default Behavior
+#### Understanding the Problem
+
 ```r
-# Default margin (1 inch) - suitable for short cluster names
-StackVln(seurat_obj, 
-         features = c("CD3D", "CD8A"),
-         group.by = "seurat_clusters")
-# Works well for names like: "0", "1", "CD4 T", "CD8 T"
+# Visualization of the cutoff issue:
+#
+#        [Plot Area]
+#   |                    |
+#   |  [Violin Plots]    |
+#   |                    |
+#   +--------------------+
+#    ↓ Bottom cutoff      ← Left cutoff
+#   Very-Long-Cluster-N..  ry-Long-Cluster-Name-1
 ```
 
-#### Adjusting Margin for Long Names
+#### Bottom Margin Adjustment
+
+Use `x_label_bottom_margin` when cluster names extend **below** the plot area:
+
 ```r
-# Moderate adjustment for medium-length names
+# Default (1 inch) - good for short names
 StackVln(seurat_obj, 
          features = c("CD3D", "CD8A"),
-         group.by = "cell_type",
-         x_label_margin = 1.5)
-# Good for: "Naive CD4 T", "Memory B cells"
+         x_label_bottom_margin = 1)  # Default
 
-# Larger adjustment for long names
+# Increase for longer names
 StackVln(seurat_obj, 
          features = c("CD3D", "CD8A"),
-         group.by = "detailed_annotation",
-         x_label_margin = 2.5)
-# Good for: "CD8+ Effector Memory T cells"
+         x_label_bottom_margin = 2)  # Moderate
 
-# Maximum adjustment for very long names
+# Maximum space for very long names
 StackVln(seurat_obj, 
          features = c("CD3D", "CD8A"),
-         x_label_margin = 3)
-# Good for: "CD4+ Central Memory T cells (CCR7+)"
+         x_label_bottom_margin = 3)  # Large
 ```
 
-**Tip**: Start with the default value and incrementally increase by 0.5 inches until all labels are visible.
+#### Left Margin Adjustment
+
+Use `x_label_left_margin` when the **leftmost cluster name** is cut off on the left side:
+
+```r
+# Default (1 inch)
+StackVln(seurat_obj, 
+         features = c("CD3D", "CD8A"),
+         x_label_left_margin = 1)  # Default
+
+# Increase for long leftmost cluster name
+StackVln(seurat_obj, 
+         features = c("CD3D", "CD8A"),
+         x_label_left_margin = 2)  # Moderate
+
+# Maximum space
+StackVln(seurat_obj, 
+         features = c("CD3D", "CD8A"),
+         x_label_left_margin = 3)  # Large
+```
+
+#### Adjusting Both Margins
+
+For datasets with consistently long cluster names:
+
+```r
+# Adjust both bottom and left margins
+StackVln(seurat_obj, 
+         features = c("CD3D", "CD8A", "CD4"),
+         group.by = "detailed_cell_type",
+         x_label_bottom_margin = 2.5,  # Bottom space
+         x_label_left_margin = 2.5)     # Left space
+```
+
+#### Practical Guide
+
+| Cluster Name Length | Bottom Margin | Left Margin | Example Names |
+|---------------------|---------------|-------------|---------------|
+| Short (< 10 chars) | 1.0 (default) | 1.0 (default) | "0", "1", "T cell" |
+| Medium (10-20 chars) | 1.5 | 1.5 | "Naive CD4 T", "Memory B" |
+| Long (20-30 chars) | 2.0 | 2.0 | "CD8+ Effector Memory T cells" |
+| Very Long (> 30 chars) | 2.5-3.0 | 2.5-3.0 | "CD4+ Central Memory T cells (CCR7+)" |
+
+**Troubleshooting Tip**: 
+1. Save your plot with default settings
+2. Check if names are cut off at the **bottom** → increase `x_label_bottom_margin`
+3. Check if names are cut off on the **left** → increase `x_label_left_margin`
+4. Adjust incrementally by 0.5 inches until labels are fully visible
 
 ### Dendrogram Calculation Methods
 
@@ -369,13 +419,25 @@ StackVln(seurat_obj, features = genes, plot_heights = c(0.5, 9.5))
 
 ### Cluster Names are Cut Off
 
-**Problem**: Long cluster names are truncated at the bottom of the saved plot.
+**Problem**: Long cluster names are truncated at the bottom or left side of the saved plot.
 
-**Solution**: Increase the `x_label_margin` parameter:
+**Solution**: Use the appropriate margin parameter:
 ```r
+# If names are cut off at the bottom
 StackVln(seurat_obj, 
          features = genes,
-         x_label_margin = 2)  # Increase from default 1
+         x_label_bottom_margin = 2)  # Increase from default 1
+
+# If the leftmost name is cut off on the left
+StackVln(seurat_obj, 
+         features = genes,
+         x_label_left_margin = 2)  # Increase from default 1
+
+# If both issues occur
+StackVln(seurat_obj, 
+         features = genes,
+         x_label_bottom_margin = 2,
+         x_label_left_margin = 2)
 ```
 
 Try values between 1 and 3 depending on your label length.
@@ -401,7 +463,8 @@ ggsave("custom_plot.png", p, width = 10, height = 8, dpi = 300)
 - `color_high`: Color for high expression (default: "#BD2130")
 - `plot_heights`: Numeric vector (length=2) for relative heights of dendrogram and violin (default: c(1, 9))
 - `plot_width`: Width of the saved plot in inches (default: 10)
-- `x_label_margin`: Bottom margin space for x-axis labels in inches (default: 1). Increase this value if cluster names are cut off at the bottom of the plot. Recommended range: 1-3 inches depending on label length.
+- `x_label_bottom_margin`: Bottom margin space for rotated x-axis labels in inches (default: 1). Increase if cluster names are cut off at the bottom. Range: 1-3 inches.
+- `x_label_left_margin`: Left margin space for rotated x-axis labels in inches (default: 1). Increase if the leftmost cluster name is cut off on the left side. Range: 1-3 inches.
 - `save_path`: Full path to save the file. Overrides save_dir
 - `save_dir`: Directory to save the file using a default filename
 - `tag`: Optional tag to add to the filename (default: NULL). When specified with save_dir, generates `{seurat_object}_{tag}_stack_vln.png` instead of `{seurat_object}_stack_vln.png`. Ignored when save_path is used.

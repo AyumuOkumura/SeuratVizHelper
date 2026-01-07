@@ -12,9 +12,13 @@
 #' @param color_high Color for high expression (default: "#BD2130").
 #' @param plot_heights Vector (len=2) relative heights of dendrogram and violin (default: c(1, 9)).
 #' @param plot_width Width of the saved plot in inches (default: 10).
-#' @param x_label_margin Bottom margin space for x-axis labels in inches (default: 1). 
-#'   Increase this value (e.g., 1.5, 2, or 3) if cluster names are long and getting cut off. 
-#'   This adjusts the plot.margin bottom value.
+#' @param x_label_bottom_margin Bottom margin space for rotated x-axis labels in inches (default: 1). 
+#'   Increase this value if cluster names extend below the plot area and get cut off at the bottom.
+#'   Recommended range: 1-3 inches.
+#' @param x_label_left_margin Left margin space for rotated x-axis labels in inches (default: 1). 
+#'   Increase this value if the leftmost cluster name gets cut off on the left side of the plot.
+#'   This is common when the first cluster has a long name and labels are rotated 45°.
+#'   Recommended range: 1-3 inches.
 #' @param save_path Full path to save the file. Overrides save_dir.
 #' @param save_dir Directory to save the file using a default filename.
 #' @param tag Optional tag to add to the filename (default: NULL). When specified with save_dir, 
@@ -56,7 +60,14 @@
 #' # Adjust bottom margin for long cluster names
 #' StackVln(pbmc, 
 #'          features = c("CD3D", "CD8A"),
-#'          x_label_margin = 2,
+#'          x_label_bottom_margin = 2,
+#'          save_dir = "./plots")
+#' 
+#' # Adjust margins for long cluster names
+#' StackVln(pbmc, 
+#'          features = c("CD3D", "CD8A"),
+#'          x_label_bottom_margin = 2,
+#'          x_label_left_margin = 2.5,
 #'          save_dir = "./plots")
 #' }
 #'
@@ -79,7 +90,8 @@ StackVln <- function(
     color_high = "#BD2130", 
     plot_heights = c(1, 9),
     plot_width = 10,
-    x_label_margin = 1,
+    x_label_bottom_margin = 1,
+    x_label_left_margin = 1,
     save_path = NULL,
     save_dir = NULL,
     tag = NULL,
@@ -117,8 +129,13 @@ StackVln <- function(
     stop("plot_heights must be a numeric vector of length 2")
   }
   
-  if (!is.numeric(x_label_margin) || length(x_label_margin) != 1 || x_label_margin <= 0) {
-    stop("x_label_margin must be a single positive numeric value")
+  # Validate margin parameters
+  if (!is.numeric(x_label_bottom_margin) || length(x_label_bottom_margin) != 1 || x_label_bottom_margin <= 0) {
+    stop("x_label_bottom_margin must be a single positive number")
+  }
+  
+  if (!is.numeric(x_label_left_margin) || length(x_label_left_margin) != 1 || x_label_left_margin <= 0) {
+    stop("x_label_left_margin must be a single positive number")
   }
   
   if (!is.null(cluster_order)) {
@@ -307,8 +324,13 @@ StackVln <- function(
       axis.line = element_blank(),
       legend.position = "right",
       axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, color = "black"),
-      # Convert x_label_margin from inches to points (1 inch = 72 points)
-      plot.margin = margin(t = 5, r = 5, b = x_label_margin * 72, l = 5, unit = "pt")
+      plot.margin = margin(
+        t = 5, 
+        r = 5, 
+        b = x_label_bottom_margin * 72,
+        l = x_label_left_margin * 72,
+        unit = "pt"
+      )
     )
   
   p_final <- p_dendro / p_violin + plot_layout(heights = plot_heights)

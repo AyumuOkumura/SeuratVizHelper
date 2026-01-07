@@ -14,7 +14,8 @@ StackVln(
   color_high = "#BD2130",
   plot_heights = c(1, 9),
   plot_width = 10,
-  x_label_margin = 1,
+  x_label_bottom_margin = 1,
+  x_label_left_margin = 1,
   save_path = NULL,
   save_dir = NULL,
   tag = NULL,
@@ -42,9 +43,14 @@ StackVln(
 
 \item{plot_width}{Width of the saved plot in inches (default: 10).}
 
-\item{x_label_margin}{Bottom margin space for x-axis labels in inches (default: 1).
-Increase this value (e.g., 1.5, 2, or 3) if cluster names are long and getting cut off.
-This adjusts the plot.margin bottom value.}
+\item{x_label_bottom_margin}{Bottom margin space for rotated x-axis labels in inches (default: 1).
+Increase this value if cluster names extend below the plot area and get cut off at the bottom.
+Recommended range: 1-3 inches.}
+
+\item{x_label_left_margin}{Left margin space for rotated x-axis labels in inches (default: 1).
+Increase this value if the leftmost cluster name gets cut off on the left side of the plot.
+This is common when the first cluster has a long name and labels are rotated 45°.
+Recommended range: 1-3 inches.}
 
 \item{save_path}{Full path to save the file. Overrides save_dir.}
 
@@ -95,7 +101,14 @@ StackVln(pbmc,
 # Adjust bottom margin for long cluster names
 StackVln(pbmc, 
          features = c("CD3D", "CD8A"),
-         x_label_margin = 2,
+         x_label_bottom_margin = 2,
+         save_dir = "./plots")
+
+# Adjust margins for long cluster names
+StackVln(pbmc, 
+         features = c("CD3D", "CD8A"),
+         x_label_bottom_margin = 2,
+         x_label_left_margin = 2.5,
          save_dir = "./plots")
 }
 }
