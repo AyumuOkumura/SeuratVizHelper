@@ -1,4 +1,4 @@
-# SeuratVizHelper 0.0.1.9000
+# StackVln 0.0.1.9000
 
 ## Major Changes
 
@@ -25,7 +25,7 @@
 
 ---
 
-# SeuratVizHelper 0.0.0.9000
+# StackVln 0.0.0.9000
 
 ## New Features
 

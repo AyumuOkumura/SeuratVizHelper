@@ -1,4 +1,4 @@
-Package: SeuratVizHelper
+Package: StackVln
 Title: Enhanced Visualization Tools for Seurat Single-Cell Analysis
 Version: 0.0.0.9000
 Authors@R: 
@@ -21,5 +21,5 @@ Imports:
     Seurat (>= 5.0.0),
     tibble,
     tidyr
-URL: https://github.com/AyumuOkumura/SeuratVizHelper
-BugReports: https://github.com/AyumuOkumura/SeuratVizHelper/issues
+URL: https://github.com/AyumuOkumura/StackVln
+BugReports: https://github.com/AyumuOkumura/StackVln/issues
