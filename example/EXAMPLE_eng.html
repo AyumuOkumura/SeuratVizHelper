@@ -9,11 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="SeuratVizHelper" />
+<meta name="author" content="StackVln" />
 
 <meta name="date" content="2026-01-05" />
 
-<title>SeuratVizHelper Example: Stacked Violin Plot</title>
+<title>StackVln Example: Stacked Violin Plot</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1567,9 +1567,9 @@ border-radius: 0px;
 
 
 
-<h1 class="title toc-ignore">SeuratVizHelper Example: Stacked Violin
+<h1 class="title toc-ignore">StackVln Example: Stacked Violin
 Plot</h1>
-<h4 class="author">SeuratVizHelper</h4>
+<h4 class="author">StackVln</h4>
 <h4 class="date">2026-01-05</h4>
 
 </div>
@@ -1579,7 +1579,7 @@ Plot</h1>
 <h2>Introduction</h2>
 <p>This document demonstrates how to create a Scanpy-style stacked
 violin plot using the <code>StackVln</code> function from the
-SeuratVizHelper package.</p>
+StackVln package.</p>
 </div>
 <div id="load-required-libraries" class="section level2">
 <h2>Load Required Libraries</h2>
@@ -1588,10 +1588,10 @@ SeuratVizHelper package.</p>
 <h1>install.packages(“devtools”)</h1>
 </div>
 <div id="devtoolsinstall_githubayumuokumuraseuratvizhelper" class="section level1">
-<h1>devtools::install_github(“AyumuOkumura/SeuratVizHelper”)</h1>
+<h1>devtools::install_github(“AyumuOkumura/StackVln”)</h1>
 <pre class="r"><code># Load required packages
 library(Seurat)
-library(SeuratVizHelper)
+library(StackVln)
 
 # Package required for dataset download
 if (!requireNamespace(&quot;SeuratData&quot;, quietly = TRUE)) {
@@ -1720,7 +1720,7 @@ StackVln_p</code></pre>
 ## 
 ## other attached packages:
 ## [1] future_1.67.0              pbmc3k.SeuratData_3.1.4   
-## [3] SeuratData_0.2.2.9001      SeuratVizHelper_0.0.0.9000
+## [3] SeuratData_0.2.2.9001      StackVln_0.0.0.9000
 ## [5] Seurat_5.1.0               SeuratObject_5.2.0        
 ## [7] sp_2.2-0                  
 ## 
@@ -1769,14 +1769,14 @@ StackVln_p</code></pre>
 </div>
 <div id="summary" class="section level2">
 <h2>Summary</h2>
-<p>This document demonstrated how to use the SeuratVizHelper package
+<p>This document demonstrated how to use the StackVln package
 to:</p>
 <ol style="list-style-type: decimal">
 <li>Load a PBMC dataset</li>
 <li>Specify marker genes</li>
 <li>Create a StackVln plot</li>
 </ol>
-<p>For detailed documentation, see the <a href="https://github.com/AyumuOkumura/SeuratVizHelper">GitHub
+<p>For detailed documentation, see the <a href="https://github.com/AyumuOkumura/StackVln">GitHub
 repository</a>.</p>
 </div>
 </div>
