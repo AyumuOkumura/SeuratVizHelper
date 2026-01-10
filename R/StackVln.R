@@ -35,7 +35,7 @@
 #' @examples
 #' \dontrun{
 #' library(Seurat)
-#' library(SeuratVizHelper)
+#' library(StackVln)
 #' 
 #' # Basic usage
 #' StackVln(pbmc, features = c("CD3D", "CD8A", "CD4"))

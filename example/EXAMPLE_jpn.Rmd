@@ -1,6 +1,6 @@
 ---
-title: "SeuratVizHelper Example: Stacked Violin Plot"
-author: "SeuratVizHelper"
+title: "StackVln Example: Stacked Violin Plot"
+author: "StackVln"
 date: "`r Sys.Date()`"
 output: 
   html_document:
@@ -15,18 +15,18 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.width =
 
 ## はじめに
 
-このドキュメントでは、SeuratVizHelperパッケージの`StackVln`関数を使用して、
+このドキュメントでは、StackVlnパッケージの`StackVln`関数を使用して、
 Scanpy風のスタックバイオリンプロットを作成する方法を示します。
 
 ## 必要なライブラリの読み込み
 
 # install.packages("devtools")
-# devtools::install_github("AyumuOkumura/SeuratVizHelper")
+# devtools::install_github("AyumuOkumura/StackVln")
 
 ```{r load-libraries}
 # 必要なパッケージを読み込み
 library(Seurat)
-library(SeuratVizHelper)
+library(StackVln)
 
 # データセットのダウンロードに必要なパッケージ
 if (!requireNamespace("SeuratData", quietly = TRUE)) {
@@ -149,10 +149,10 @@ sessionInfo()
 
 ## まとめ
 
-このドキュメントでは、SeuratVizHelperパッケージを使用して：
+このドキュメントでは、StackVlnパッケージを使用して：
 
 1. PBMCデータセットを読み込み
 2. マーカー遺伝子を指定
 3. StackVlnプロットを作成
 
-する方法を示しました。詳細なドキュメントは[GitHubリポジトリ](https://github.com/AyumuOkumura/SeuratVizHelper)をご覧ください。
+する方法を示しました。詳細なドキュメントは[GitHubリポジトリ](https://github.com/AyumuOkumura/StackVln)をご覧ください。

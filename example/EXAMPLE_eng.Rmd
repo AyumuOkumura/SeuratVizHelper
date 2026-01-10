@@ -1,6 +1,6 @@
 ---
-title: "SeuratVizHelper Example: Stacked Violin Plot"
-author: "SeuratVizHelper"
+title: "StackVln Example: Stacked Violin Plot"
+author: "StackVln"
 date: "`r Sys.Date()`"
 output: 
   html_document:
@@ -15,17 +15,17 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.width =
 
 ## Introduction
 
-This document demonstrates how to create a Scanpy-style stacked violin plot using the `StackVln` function from the SeuratVizHelper package.
+This document demonstrates how to create a Scanpy-style stacked violin plot using the `StackVln` function from the StackVln package.
 
 ## Load Required Libraries
 
 # install.packages("devtools")
-# devtools::install_github("AyumuOkumura/SeuratVizHelper")
+# devtools::install_github("AyumuOkumura/StackVln")
 
 ```{r load-libraries}
 # Load required packages
 library(Seurat)
-library(SeuratVizHelper)
+library(StackVln)
 
 # Package required for dataset download
 if (!requireNamespace("SeuratData", quietly = TRUE)) {
@@ -149,10 +149,10 @@ sessionInfo()
 
 ## Summary
 
-This document demonstrated how to use the SeuratVizHelper package to:
+This document demonstrated how to use the StackVln package to:
 
 1. Load a PBMC dataset
 2. Specify marker genes
 3. Create a StackVln plot
 
-For detailed documentation, see the [GitHub repository](https://github.com/AyumuOkumura/SeuratVizHelper).
+For detailed documentation, see the [GitHub repository](https://github.com/AyumuOkumura/StackVln).
